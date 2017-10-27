@@ -1,0 +1,15 @@
+import sys
+import random
+listz = sys.argv[1:]
+
+def reverse(word):
+    for x in range(len(word)-1):
+        print(word[-i-1])
+
+words_arr = []
+while len(listz) > 0:
+    rand_index = random.randint(0,len(listz)-1)
+    words_arr.append(listz.pop(rand_index))
+    
+print(" ".join(words_arr))
+reverse(words_arr)
