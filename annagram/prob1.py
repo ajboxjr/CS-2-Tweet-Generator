@@ -2,6 +2,7 @@ import random
 import datetime
 import time
 import sys
+
 def get_elapsed_time(start_time):
     end_time = time.time()
     print("compilation time {}".format(end_time - start_time))

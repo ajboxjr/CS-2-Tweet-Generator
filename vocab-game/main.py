@@ -17,14 +17,20 @@ def is_word(word):
 
 def select_set(sel_set):
     if vocab_sets:
-        for setz in sets:
-            if setz.title == sel_set:
-                return setz
-def is_set(sel_set):
-    if sel_set in vocab_sets.title:
-        return True
-    else:
+        for set_item in vocab_sets:
+            if set_item.title == sel_set:
+                return set_item
         return False
+
+def is_set(sel_set):
+    for set_item in vocab_sets:
+        if sel_set == set_item.title:
+            return True
+        else:
+            return False
+def view_sets():
+    for collection in vocab_sets:
+        print(collection)
 
 if __name__ == '__main__':
     option= ""
@@ -34,19 +40,24 @@ if __name__ == '__main__':
         option = int(input("> " ))
         if option == 1:
             set_name = input("What would you like to name the set?")
-            if(not is_set):
+            if is_set(set_name):
+                print("Sorry that is already a set")
+            else:
                 flash_set  = VocabSet(set_name)
                 vocab_sets.append(flash_set)
+                print("{} has been set".format(flash_set.title))
         if option == 2:
-            for item in vocab_sets:
-                print(item.title)
-            vocab_set = select_set(vocab_sets, input("Which one would you like to selected"))
-            end_pos = input("How many words would you like to input")
-            for _ in range(end_pos):
-                name = input("What is the word")
-                if is_word(name):
-                    definition = input("Name: {}. Definition: ".format(name))
-                    vocab_set.add(VocabCard(name, definition))
-                else:
-                    print("Sorry that is not a word")
+            view_sets()
+            vocab_set = select_set(input("Which one would you like to selected"))
+            if(is_set(flash_set)):
+                end_pos = int(input("How many words would you like to input"))
+                for _ in range(end_pos):
+                    name = input("What is the word")
+                    if is_word(name):
+                        definition = input("Name: {}. Definition: ".format(name))
+                        vocab_set.add_card(VocabCard(name, definition))
+                    else:
+                        print("Sorry that is not a word")
+            else:
+                print("{} is already a set".format(flash_set))
 

@@ -1,0 +1,1 @@
+these are a few words that i am going to place in a histogram. I hope that i sucessfully compiles into a functional file so that this shit will work way better. I will do some more code later
