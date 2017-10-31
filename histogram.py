@@ -1,10 +1,12 @@
 import sys
 import random
+
 class Histogram(dict):
     def __init__(self, source_text):
         self.source_text = source_text
         self.histogram()
         self.tuple = self.to_tuple()
+        self.list = self.to_list()
 
     def unique_words(self):
         unique_arr = []
@@ -26,10 +28,26 @@ class Histogram(dict):
             else:
                 self[word] =1
         #print(self)
+    def getName(self,item):
+        return item[0]
+    def getCount(self, item):
+        return item[1]
 
-    def stochastic(self, tup_histogram):
-        for i in range(len(tup_histogram)):
+    def sort(self,option):
+        if option == 'word':
+            return sorted(self.tuple, key=self.getName)
+        if option == 'count':
+            return sorted(self.tuple, key=self.getCount)
+
+    def stochastic(self):
+        for i in range(len(self.tuple)):
             print(tup_histogram[i][0])
+
+    def to_list(self):
+        list_histogram = []
+        for key,val in self.items():
+            list_histogram.append([key,val])
+        return list_histogram
 
     def to_tuple(self):
         tuple_histogram = []
@@ -59,7 +77,7 @@ def handle_input(input_word):
         return input_word
 
 if __name__ == '__main__':
-
+    source_text = "text.txt"
     histogramz = Histogram(source_text)
     histogramz.histogram()
     histogramz.frequency('this')
