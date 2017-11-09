@@ -1,1 +1,4 @@
-these are a few words that i am going to place in a histogram. I hope that i sucessfully compiles into a functional file so that this shit will work way better. I will do some more code later
+“This tepid universe was no longer hot enough or dense enough to cook quarks, and so they all grabbed dance partners, creating a permanent new family of heavy particles called hadrons (from the Greek hadros, meaning “thick”). That quark-to-hadron transition soon resulted in the emergence of protons and neutrons as well as other, less familiar heavy particles, all composed of various combinations of quark species. In Switzerland (back on Earth) the European particle physics collaboration† uses a large accelerator to collide beams of hadrons in an attempt to re-create these very conditions. This largest machine in the world is sensibly called the Large Hadron Collider.
+”
+
+Excerpt From: Neil DeGrasse Tyson. “Astrophysics for People in a Hurry.” iBooks. 

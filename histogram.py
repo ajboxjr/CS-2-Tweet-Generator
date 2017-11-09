@@ -1,7 +1,8 @@
 import sys
+import time
 import random
 
-class Histogram(dict):
+class Dictogram(dict):
     def __init__(self, source_text):
         self.source_text = source_text
         self.histogram()
@@ -28,11 +29,12 @@ class Histogram(dict):
             else:
                 self[word] =1
         #print(self)
+
     def getName(self,item):
         return item[0]
+
     def getCount(self, item):
         return item[1]
-
     def sort(self,option):
         if option == 'word':
             return sorted(self.tuple, key=self.getName)
@@ -71,14 +73,17 @@ def handle_input(input_word):
     if input_word.endswith('.txt'):
         print('input a text file:' + input_word)
         source_text = read_text(input_word) 
+        print(source_text)
         return source_text
     else:
         print("input raw string \n")
-        return input_word
-
+        return input_word.split()
+def time_diffrence(start_time):
+    total_time = time.time()-start_time
+    return total_time
 if __name__ == '__main__':
-    source_text = "text.txt"
-    histogramz = Histogram(source_text)
-    histogramz.histogram()
-    histogramz.frequency('this')
-    histogramz.unique_words()
+    source_text = " ".join(sys.argv[1:])
+    time_start = time.time()
+    histogramz = Histogram(handle_input(source_text))
+    histogramz.frequency('fish')
+    print(time_diffrence(time_start))

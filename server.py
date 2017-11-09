@@ -1,10 +1,15 @@
-from flask import Flask
+from flask import Flask, render_template
 app = Flask(__name__)
 from sampling import *
 from histogram import *
 text = handle_input('text.txt')
 histogram = Histogram(text)
+weighted_arr = weighted_hist(histogram.tuple)
+print(weighted_arr)
 
-@app.route('/<question_id>')
-def hello_world(question_id):
-    return str([stochastic_sample(histogram) for _ in range(int(question_id))])
+@app.route('/<int:population>')
+def index():
+    return render_template('hello.html', histogram=histogram)
+
+if __name__ == '__main__':
+    app.run(debug=True)
