@@ -7,7 +7,7 @@ histogram = Histogram(text)
 weighted_arr = weighted_hist(histogram.tuple)
 print(weighted_arr)
 
-@app.route('/<int:population>')
+@app.route('/')
 def index():
     return render_template('hello.html', histogram=histogram)
 
