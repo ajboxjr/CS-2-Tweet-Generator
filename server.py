@@ -1,13 +1,13 @@
 from flask import Flask, render_template
 app = Flask(__name__)
 from sampling import *
-from histogram import *
+import histogram
 text = handle_input('text.txt')
-histogram = Histogram(text)
+histogram = histogram.Hi
 weighted_arr = weighted_hist(histogram.tuple)
 print(weighted_arr)
 
-@app.route('/')
+@app.route('/<int:population>')
 def index():
     return render_template('hello.html', histogram=histogram)
 

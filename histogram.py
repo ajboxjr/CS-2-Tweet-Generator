@@ -6,7 +6,7 @@ import random
 # Dictionary Dictogram
 class Dictogram(dict):
     def __init__(self, source_text=None):
-        self.source_text = re.sub(r'[^\w\s]',''," ".join(source_text)).split(" ")
+        self.source_text = re.sub(r'[^\w\s.]',''," ".join(source_text)).split(" ")
         if self.source_text != None:
             for word in self.source_text:
                 self.add_count(word)
@@ -50,10 +50,21 @@ class Dictogram(dict):
 
     def markoff(self):
         x = 0
-        while x <len(self.source_text):
+        markoff_hist = {}
+        while x <len(self.source_text)-1:
             print(self.source_text[x])
+            if self.source_text[x] not in markoff_hist.keys():
+                markoff_hist[self.source_text[x]] = {self.source_text[x+1]:1}
+            else:
+                if self.source_text[x+1] not in markoff_hist[self.source_text[x]]: 
+                    markoff_hist[self.source_text[x]][self.source_text[x+1]] =1
+                else:
+                    markoff_hist[self.source_text[x]][self.source_text[x+1]] +=1
             x+=1
-            
+        print(markoff_hist)
+
+
+                    
 #Get word
 #In: word
 #Return: freqency of word
@@ -74,18 +85,6 @@ class Dictogram(dict):
         for i in range(len(self.tuple)):
             print(tup_histogram[i][0])
 
-    def to_list(self):
-        list_histogram = []
-        for key,val in self.items():
-            list_histogram.append([key,val])
-        return list_histogram
-
-    def to_tuple(self):
-        tuple_histogram = []
-        for key,val in self.items():
-            tuple_histogram.append((key,val))
-        #print(tuple_histogram)
-        return tuple_histogram
 
     def export_histogram(self, histogram_title):
         file =  open(histogram_title+'.txt', 'w')
@@ -115,7 +114,5 @@ if __name__ == '__main__':
     time_start = time.time()
     histogramz = Dictogram(handle_input(source_text))
     histogramz.frequency('fish')
-    print(histogramz.to_tuple())
-    print(histogramz.to_list())
     print(time_diffrence(time_start))
     histogramz.markoff()
