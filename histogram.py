@@ -2,10 +2,11 @@ import sys
 import time
 import random
 
-class Dictogram(dict):
-    def __init__(self, source_text):
+class Histogram(dict):
+    def __init__(self, source_text=None):
         self.source_text = source_text
-        self.histogram()
+        if self.source_text:
+            self.histogram()
         self.tuple = self.to_tuple()
         self.list = self.to_list()
 
@@ -28,13 +29,18 @@ class Dictogram(dict):
                 self[word] += 1
             else:
                 self[word] =1
-        #print(self)
+    def add_count(self, word, count=1):
+        if word in self:
+            self[word] += count
+        else:
+            self[word] = count
 
     def getName(self,item):
         return item[0]
 
     def getCount(self, item):
         return item[1]
+
     def sort(self,option):
         if option == 'word':
             return sorted(self.tuple, key=self.getName)
@@ -86,4 +92,6 @@ if __name__ == '__main__':
     time_start = time.time()
     histogramz = Histogram(handle_input(source_text))
     histogramz.frequency('fish')
+    print(histogramz.to_tuple())
+    print(histogramz.to_list())
     print(time_diffrence(time_start))
