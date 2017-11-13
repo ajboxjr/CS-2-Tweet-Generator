@@ -1,15 +1,18 @@
 import sys
+import re
 import time
 import random
 
-class Histogram(dict):
+# Dictionary Dictogram
+class Dictogram(dict):
     def __init__(self, source_text=None):
-        self.source_text = source_text
-        if self.source_text:
-            self.histogram()
-        self.tuple = self.to_tuple()
-        self.list = self.to_list()
-
+        self.source_text = re.sub(r'[^\w\s]',''," ".join(source_text)).split(" ")
+        if self.source_text != None:
+            for word in self.source_text:
+                self.add_count(word)
+# Return words that have a frequency of 1
+# In: dictogram(dictionary)
+# Return: uniquewords(array)
     def unique_words(self):
         unique_arr = []
         for key , val in self.items():
@@ -18,23 +21,42 @@ class Histogram(dict):
         #print("Unique words: {}".format(unique_arr))
         return unique_arr
 
+# Return the frequency of a word
+#In: word in array(string)
+#Return Frequency of Word(int)
     def frequency(self, word):
         if word in self:
             print("{}: {}".format(word, self[word]))
             return self[word]
             
+# Create a histogram of words and save as  dictogram object
+#In: N/A
+#Return: N/A
     def histogram(self):
         for word in self.source_text:
             if word in self: 
                 self[word] += 1
             else:
                 self[word] =1
+
+# Add word to dictohgram object
+#In word/Token, and Frequency
+#Return: N/A
     def add_count(self, word, count=1):
         if word in self:
             self[word] += count
         else:
             self[word] = count
 
+    def markoff(self):
+        x = 0
+        while x <len(self.source_text):
+            print(self.source_text[x])
+            x+=1
+            
+#Get word
+#In: word
+#Return: freqency of word
     def getName(self,item):
         return item[0]
 
@@ -42,8 +64,9 @@ class Histogram(dict):
         return item[1]
 
     def sort(self,option):
+        sorted_arr = [item for item in self]
         if option == 'word':
-            return sorted(self.tuple, key=self.getName)
+            return sorted(sorted_arr2, key=self.getName)
         if option == 'count':
             return sorted(self.tuple, key=self.getCount)
 
@@ -90,8 +113,9 @@ def time_diffrence(start_time):
 if __name__ == '__main__':
     source_text = " ".join(sys.argv[1:])
     time_start = time.time()
-    histogramz = Histogram(handle_input(source_text))
+    histogramz = Dictogram(handle_input(source_text))
     histogramz.frequency('fish')
     print(histogramz.to_tuple())
     print(histogramz.to_list())
     print(time_diffrence(time_start))
+    histogramz.markoff()

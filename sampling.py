@@ -23,8 +23,7 @@ def cum_weight_hist(histogram):
     cumlative_arr = []
     total_words = sum([int(item[1]) for item in sample])
     for word in histogram:
-
-    
+        pass
 
 def population(histogram, pop_size):
     pop_dict = {}
