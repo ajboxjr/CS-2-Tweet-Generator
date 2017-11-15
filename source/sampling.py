@@ -1,6 +1,6 @@
 import sys
 import random
-from histogram import *
+from dictogram import *
 
             
 
@@ -11,6 +11,14 @@ def stochastic_sampling(weighted_hist):
         cum_weight += word[1]
         if cum_weight > rand_percent:
             return word[0]
+
+def weighted_dict(sample):
+    total = sum([sample.values()])
+    weight_dict = {}
+    for key,val in sample.items()
+        weight_dict[key] = val/total
+    print(weight_dict)
+    return weight_dict
 
 def weighted_hist(sample):
     weight_arr = []
@@ -23,7 +31,7 @@ def cum_weight_hist(histogram):
     cumlative_arr = []
     total_words = sum([int(item[1]) for item in sample])
     for word in histogram:
-        pass
+        print(word)
 
 def population(histogram, pop_size):
     pop_dict = {}
@@ -44,3 +52,4 @@ if __name__ =="__main__":
     print(histogram.sort('count'))
     weighted_arr = weighted_hist(histogram.tuple)
     print(population(weighted_arr, 4))
+    cum_weight_hist(histogram)

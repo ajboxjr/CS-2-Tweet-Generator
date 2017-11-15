@@ -28,6 +28,9 @@ if __name__ == '__main__':
 
 	#Benchmarking: creating start time
     start_time = time.time()
-    dictionary_arr = get_words_list(sys.argv[1])
-    random_words(dictionary_arr, int(sys.argv[2]))
+    # DIctionary words
+    # /usr/share/dict/words
+    dictionary_arr = get_words_list('/usr/share/dict/words')
+    words = random_words(dictionary_arr, int(sys.argv[1]))
+    print(words)
     get_elapsed_time(start_time)
