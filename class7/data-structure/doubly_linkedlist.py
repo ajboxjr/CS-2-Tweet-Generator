@@ -10,30 +10,31 @@ class Node(object):
 class DoublyLinkedList(object):
     """Create a linked list. Can pass in array of data items(optional)"""
     def __init__(self, data_items=None):
-        self.head = data
-        self.tail = data
+        self.head = None
+        self.tail = None
+        if data_items is not None:
+            for item in data_items:
+                self.append(item)
 
     def append(self,data):
         if self.head == None:
             self.head = Node(data)
             self.tail = self.head
-            return True
         else:
             curr = self.tail
             new = Node(data)
-            curr.next, new.prev = new, curr
+            self.tail.next, new.prev = new, curr
             self.tail = new
-            return True
     
     def prepend(self,data):
         if self.head == None:
-            self.head = self.tail = Node(data)
+            self.head = Node(data)
+            self.tail = self.head 
         else:
             curr = self.head
             new = Node(data)
             new.next, curr.prev = curr, new
             self.head = new
-            return True
 
     def get_node(self, index):
         if self.head == None:
@@ -69,11 +70,24 @@ class DoublyLinkedList(object):
                 return curr
                     
 
-    def deletePrev(self, index):
-        if index == 0:
-            print("there is not previous node")
-            return -1
-        curr = self.head 
+    def delete(self, item):
+        """DeleteNode based on item data"""
+        prev = self.head
+        if prev.data == item:
+            self.head = prev.next
+            if self.head == None:
+                self.tail = None
+        while prev.next:
+            curr = prev.next
+            if curr.data == item:
+                print(curr.data)
+                if curr.next ==None:
+                    self.tail = None
+                else:
+                    pass
+                prev.next = curr.next
+            prev = prev.next
+
     def deleteNext(self, index):
         pass
     def __str__(self):

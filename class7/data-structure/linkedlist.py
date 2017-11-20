@@ -12,7 +12,7 @@ class LinkedList(object):
     def __init__(self, items=None):
         self.head = None
         self.tail = None
-        if items:
+        if items is not None:
             for item in items:
                 self.append(item)
 
@@ -45,6 +45,7 @@ class LinkedList(object):
         return self.head is None
 
     def append(self,data):
+        # setting tail and head 
         if self.is_empty():
             self.head = self.tail = Node(data)
             print('added head')
@@ -55,16 +56,56 @@ class LinkedList(object):
                 curr = curr.next
             self.tail = curr.next = Node(data)
             
+    def prepend(self,data):
+        if self.head == None:
+            self.head = Node(data)
+            self.tail = self.head
+        else:
+            curr = self.head
+            new = Node(data)
+            new.next, curr.prev = curr, new
+            self.head = new
 
-    def delete(self,index):
-        """Get Node a set it's previous to next and next to prev"""
-        if (index) == 0:
-            return self.head
-        #Get Previous node
-        for _ in range(index-1):
-            curr = curr.next
-        print(curr)
-        curr.next = curr.next.next
+    def find(self, quality):
+         """Return an item from this linked list satisfying the given quality.
+        TODO: Best case running time: O(???) Why and under what conditions?
+        TODO: Worst case running time: O(???) Why and under what conditions?"""
+        # TODO: Loop through all nodes to find item where quality(item) is True
+        # TODO: Check if node's data satisfies given quality function
+    
+
+    def delete(self,item):
+        """Delete a node based on it's data value"""
+        #Delete first node
+        if self.head:
+            head = self.head
+            if head.data == item:
+                print('the head equals {}'.format(head.next))
+                self.head = head.next
+            #The other nodes
+            else:
+                prev = self.head
+                curr = prev.next
+                while curr.next:
+                    print("prev {} , cur {}".format(prev.data, curr.data))
+                    if curr.data == item:
+                        prev.next = curr.next
+                        return "deleted {}".format(curr)
+                    else:
+                        prev = prev.next
+                        curr = prev.next
+                print(curr.data)
+                print(prev.data)
+                if curr.data == item:
+                    self.tail = prev    
+                    prev.next = None
+                else:
+                    print("{} is not in the linkedlist".format(item))
+                    return ValueError
+        else:
+            return ValueError
+
+                
             
     def get_node(self, index):
         if self.is_empty():
@@ -88,6 +129,7 @@ class LinkedList(object):
 
 
     def length(self):
+        """Return the legth of the code"""
         idx = 1
         if self.head == None:
             return 0
