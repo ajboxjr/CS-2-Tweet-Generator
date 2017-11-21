@@ -4,6 +4,7 @@ import random
 
 class Annagram(object):
     def __init__(self,word):
+        """Initialize annagram word with word(optional)"""
         self.word = None
         if word:
             self.word = word
@@ -18,9 +19,11 @@ class Annagram(object):
     
 
     def get_pos_words(self):
+        """Get all words that start with chars in word"""
         pos_word_arr = []
         annagram_set = set(self.word)
         for word in get_dictionary():
+            #Get words that are less than or equal to size of word
             if len(word) <= len(self.word):
                 for char in annagram_set:
                     if word.startswith(char):
@@ -29,6 +32,7 @@ class Annagram(object):
 
             
     def word_permutation(self):
+        """Get all variations of word and check if in the possible words"""
         pos_words = self.get_pos_words()
         print(pos_words)
         for length in range(1,len(self.word)+1):
@@ -38,6 +42,7 @@ class Annagram(object):
                     print(word)
 
 def get_dictionary():
+    "Return the system dictionary words"""
     with open('/usr/share/dict/words', 'r') as f:
         dictionary = f.read().split()
     return dictionary

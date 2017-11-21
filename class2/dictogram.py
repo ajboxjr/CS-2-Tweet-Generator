@@ -78,6 +78,7 @@ def handle_input(input_word):
 
 
 class Markov(dict):
+    """Markov is a dictionary of key(current word), val/next_word(dictogram)."""
     def __init__(self, text=None):
         if text:
             self.markov(text)
@@ -101,6 +102,7 @@ class Markov(dict):
             markov_weight[key] = val.weighted_hist()
         return markov_weight
     def generate_sentence(self, length):
+        """Return a sentence""" 
         x = 0
         while x< length:
             pass

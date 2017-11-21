@@ -17,6 +17,7 @@ class DoublyLinkedList(object):
                 self.append(item)
 
     def append(self,data):
+        """Add Node(data) to end of linkedlist, and point to tail."""
         if self.head == None:
             self.head = Node(data)
             self.tail = self.head
@@ -27,6 +28,7 @@ class DoublyLinkedList(object):
             self.tail = new
     
     def prepend(self,data):
+        """Add node to beginning of linkedlist."""
         if self.head == None:
             self.head = Node(data)
             self.tail = self.head 
@@ -37,6 +39,7 @@ class DoublyLinkedList(object):
             self.head = new
 
     def get_node(self, index):
+        """Return node of the selected index""" 
         if self.head == None:
             return -1
         else:
@@ -88,8 +91,6 @@ class DoublyLinkedList(object):
                 prev.next = curr.next
             prev = prev.next
 
-    def deleteNext(self, index):
-        pass
     def __str__(self):
         data = ""
         curr = self.head

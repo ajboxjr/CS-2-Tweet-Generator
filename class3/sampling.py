@@ -5,6 +5,7 @@ from dictogram import *
             
 
 def stochastic_sampling(weighted_hist):
+    """Randomly choose a word in weighted histogram based on cumulative weights"""
     rand_percent = random.uniform(0,1)
     cum_weight = 0
     for token in weighted_hist:
@@ -12,28 +13,32 @@ def stochastic_sampling(weighted_hist):
         if cum_weight > rand_percent:
             return word[0]
 
-def weighted_dict(sample):
-    total = sum([sample.values()])
+def weighted_dict(dictogram):
+    """Convert dictogram into weighted histogram"""
+    total = sum([dictogram.values()])
     weight_dict = {}
-    for key,val in sample.items()
+    for key,val in dictogram.items()
         weight_dict[key] = val/total
     print(weight_dict)
     return weight_dict
 
-def weighted_hist(sample):
+def weighted_list(listogram):
+    """Return a weighted listogram from list"""
     weight_arr = []
-    total_words = sum([int(item[1]) for item in sample])
-    for hist in sample:
+    total_words = sum([int(item[1]) for item in listogram])
+    for hist in listogram:
         weight_arr.append([hist[0], hist[1]/total_words])
     return weight_arr
 
 def cum_weight_hist(histogram):
+    """ Return the total tokens/frequencies in histogram"""
     cumlative_arr = []
     total_words = sum([int(item[1]) for item in sample])
     for word in histogram:
         print(word)
 
 def population(histogram, pop_size):
+    """ Get the frequency of histogram words in a certian population"""
     pop_dict = {}
     for _ in range(pop_size):
         word = stochastic_sampling(histogram)

@@ -45,6 +45,7 @@ class LinkedList(object):
         return self.head is None
 
     def append(self,data):
+        """Add Node with data to the end of linked list and set to tail"""
         # setting tail and head 
         if self.is_empty():
             self.head = self.tail = Node(data)
@@ -57,6 +58,7 @@ class LinkedList(object):
             self.tail = curr.next = Node(data)
             
     def prepend(self,data):
+        """Add Node to begining of Linkelist. Set it to head"""
         if self.head == None:
             self.head = Node(data)
             self.tail = self.head
@@ -105,9 +107,8 @@ class LinkedList(object):
         else:
             return ValueError
 
-                
-            
     def get_node(self, index):
+        """(ABstract). Get element based on index."""
         if self.is_empty():
             return -1
         else:
