@@ -65,24 +65,43 @@ class LinkedList(object):
         else:
             curr = self.head
             new = Node(data)
-            new.next, curr.prev = curr, new
+            new.next = curr
+            curr.prev = new
             self.head = new
 
+    def replace(self,item, quality):
+        if self.head:
+            curr = self.head
+            while curr:
+                if quality(curr.data):
+                    curr.data = item
+                else:
+                    curr = curr.next
+        else:
+            return None
+                    
+
     def find(self, quality):
-         """Return an item from this linked list satisfying the given quality.
-        TODO: Best case running time: O(???) Why and under what conditions?
-        TODO: Worst case running time: O(???) Why and under what conditions?"""
-        # TODO: Loop through all nodes to find item where quality(item) is True
-        # TODO: Check if node's data satisfies given quality function
+        curr = self.head
+        if curr != None:
+            while curr:
+                if quality(curr.data):
+                    print("found {} at {}".format(curr.data, curr))
+                    return curr.data
+                else:
+                    curr = curr.next
+        else:
+            print("not found")
+            return None
+
     
 
     def delete(self,item):
         """Delete a node based on it's data value"""
         #Delete first node
         if self.head:
-            head = self.head
+            prev = self.head
             if head.data == item:
-                print('the head equals {}'.format(head.next))
                 self.head = head.next
             #The other nodes
             else:
