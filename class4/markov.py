@@ -13,12 +13,14 @@ class Markov(dict):
     def tokenize_sentence(self, text):
         """ Using nltk split corpus based on sentences"""
         sentence_arr = sent_tokenize(text)
+        print("There are {} sentences".format(len(sentence_arr)))
         return sentence_arr
 
     def markov(self,text):
         """ Create a markoff model based on the text array input into the file """
         corpus = self.tokenize_sentence(text)
         print(corpus)
+        x = 0
         for sentence in corpus:
             sentence = sentence.split()
             x = 0
@@ -55,9 +57,10 @@ class Markov(dict):
             if word == 'STOP':
                 break
             sentence += " "+word
+        print(sentence)
         return sentence
-
 def main():
         marky = Markov(read_file('neil.txt'))
+        weighted_markov = marky.weight_markov()
         marky.generate_sentence()
 main()

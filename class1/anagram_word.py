@@ -36,7 +36,8 @@ class Annagram(object):
         pos_words = self.get_pos_words()
         print(pos_words)
         for length in range(1,len(self.word)+1):
-            perms = set(map("".join, permutations(self.word, length)))
+            perms = map("".join, permutations(self.word, length))
+            print(perms)
             for word in perms:
                 if word in pos_words:
                     print(word)

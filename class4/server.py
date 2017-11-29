@@ -1,15 +1,15 @@
 from flask import Flask, render_template
-app = Flask(__name__)
-from sampling import *
-import histogram
-text = handle_input('text.txt')
-histogram = histogram.Hi
-weighted_arr = weighted_hist(histogram.tuple)
-print(weighted_arr)
+import sys  
+from markov import *
 
-@app.route('/<int:population>')
-def index():
-    return render_template('hello.html', histogram=histogram)
+
+marky = Markov()
+app = Flask(__name__)
+
+@app.route('/')
+@app.route('/<int:number>')
+def index(number=None):
+    return render_template('home.html', sentence=number)
 
 if __name__ == '__main__':
     app.run(debug=True)

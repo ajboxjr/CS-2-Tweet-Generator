@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+    background: #091A47;
+}
+#title {
+  width: 400px;
+  height: 200px;
+  margin: 0;
+  color: white;
+  text-align: center;
+}
+.container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+
+  background: linear-gradient(180deg, #040D26 0%, rgba(17, 35, 82, 0.74) 99.99%);
+}
+.text-container {
+  width:300px;
+      height:200px;
+      position:absolute;
+      left:50%;
+      top:50%;
+      margin:-100px 0 0 -150px;
+
+background: rgba(219, 219, 219, 0.03);
+border: 1px solid #FFFFFF;
+box-sizing: border-box;
+}
