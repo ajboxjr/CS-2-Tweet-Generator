@@ -7,11 +7,11 @@ class HashTable(object):
     def __init__(self, init_size=8):
         """Initialize this hash table with the given initial size."""
         self.buckets = [LinkedList() for _ in range(init_size)]
-        self.size = 0  # Number of key-value entries
+        self.size = 0  # Number of key-value ntries
 
     def __str__(self):
         """Return a formatted string representation of this hash table."""
-        items = ['{!r}: {!r}'.format(key, val) for key, val in self.items()]
+        items = ['{!r}: {!r}'.format(key,value) for key,value in self.items()]
         return '{' + ', '.join(items) + '}'
 
     def __repr__(self):
@@ -20,6 +20,7 @@ class HashTable(object):
 
     def _bucket_index(self, key):
         """Return the bucket index where the given key would be stored."""
+        print("{}, hash{}".format(key,hash(key)))
         return hash(key) % len(self.buckets)
 
     def load_factor(self):
@@ -85,8 +86,6 @@ class HashTable(object):
         # Find the bucket the given key belongs in
         index = self._bucket_index(key)
         bucket = self.buckets[index]
-        print(key)
-        print(self.buckets)
         # Find the entry with the given key in that bucket, if one exists
         entry = bucket.find(lambda key_value: key_value[0] == key)
         if entry is not None:  # Found
@@ -103,22 +102,27 @@ class HashTable(object):
         Worst case running time: ??? under what conditions? [TODO]"""
         # Find the bucket the given key belongs in
         index = self._bucket_index(key)
-        bucket = self.buckets[index]
         print(self.buckets)
+        print("{} is in bucket {}".format(key, index))
+        bucket = self.buckets[index]
+        print(bucket)
+        data = (key,value)
         # Find the entry with the given key in that bucket, if one exists
         # Check if an entry with the given key exists in that bucket
-        entry = bucket.find(lambda key_value: key_value[0] == key)
+        entry = bucket.find(lambda key_value: key_value[0] == key) 
         if entry is not None:  # Found
             # In this case, the given key's value is being updated
             # Remove the old key-value entry from the bucket first
-            bucket.delete(entry)
-        # Insert the new key-value entry into the bucket in either case
-        bucket.append((key, value))
-        self.size +=1
+            #lamda(node): where node[0](key)==key
+            bucket.replace(data,lambda key_value: key_value[0] == key)
+        else:
+            # Insert the new key-value entry into the bucket in either case
+            bucket.append(data)
+        self.size += 1
         # TODO: Check if the load factor exceeds a threshold such as 0.75
-        print(self.load_factor())
         while self.load_factor() > .75:
         # TODO: If so, automatically resize to reduce the load factor
+            print("Load Factor Resizing")
             self._resize()
 
     def delete(self, key):
@@ -176,6 +180,8 @@ def test_hash_table():
     print('load_factor: ' + str(ht.load_factor()))
     ht.set('X', 10)
     print('set(X, 10): ' + str(ht))
+    ht.set('X', 6)
+    print('set(X, 6): ' + str(ht))
     ht.set('L', 50)  # Should trigger resize
     print('set(L, 50): ' + str(ht))
     print('size: ' + str(ht.size))
@@ -209,4 +215,3 @@ def test_hash_table():
 
 if __name__ == '__main__':
     test_hash_table()
-
