@@ -142,7 +142,6 @@ class LinkedList(object):
                         prev.next = curr.next
                         self.len -=1
                         if prev.next == None:
-                            print('yaah')
                             self.tail = prev
                         return "deleted {}".format(curr)
                     else:

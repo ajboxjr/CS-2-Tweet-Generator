@@ -20,7 +20,6 @@ class HashTable(object):
 
     def _bucket_index(self, key):
         """Return the bucket index where the given key would be stored."""
-        print("{}, hash{}".format(key,hash(key)))
         return hash(key) % len(self.buckets)
 
     def load_factor(self):
@@ -94,7 +93,8 @@ class HashTable(object):
             assert len(entry) == 2
             return entry[1]
         else:  # Not found
-            raise KeyError('Key not found: {}'.format(key))
+            print("Key not found: {}".format(key))
+            #raise KeyError('Key not found: {}'.format(key))
 
     def set(self, key, value):
         """Insert or update the given key with its associated value.
@@ -102,23 +102,35 @@ class HashTable(object):
         Worst case running time: ??? under what conditions? [TODO]"""
         # Find the bucket the given key belongs in
         index = self._bucket_index(key)
-        print(self.buckets)
-        print("{} is in bucket {}".format(key, index))
-        bucket = self.buckets[index]
-        print(bucket)
         data = (key,value)
+        bucket_len = len(self.buckets)
+        #Linear Probing(iterating through all buckets to find a empty bucket for data.
+        print("starting index {}".format(index))
+        for i in range(index, index+bucket_len):
+            bucket = self.buckets[i%bucket_len]
+        # Linear Probing
+        # Get bucket index
+        #2. If bucket done not have data
         # Find the entry with the given key in that bucket, if one exists
-        # Check if an entry with the given key exists in that bucket
-        entry = bucket.find(lambda key_value: key_value[0] == key) 
-        if entry is not None:  # Found
-            # In this case, the given key's value is being updated
-            # Remove the old key-value entry from the bucket first
-            #lamda(node): where node[0](key)==key
-            bucket.replace(data,lambda key_value: key_value[0] == key)
-        else:
-            # Insert the new key-value entry into the bucket in either case
-            bucket.append(data)
-        self.size += 1
+            if bucket.length() !=0: # Check if an entry with the given key exists in that bucket
+                entry = bucket.find(lambda key_value: key_value[0] == key) 
+                if entry is not None:  # Found
+                    # In this case, the given key's value is being updated
+                    # Remove the old key-value entry from the bucket first
+                    #lamda(node): where node[0](key)==key
+                    bucket.replace(data,lambda key_value: key_value[0] == key)
+                    break
+                else:
+                    # Insert the new key-value entry into the bucket in either case
+                    #(SEPERATE CHAINING) 
+                    #bucket.append(data)
+                    pass
+            else:
+                print("bucket {}".format(i%bucket_len))
+                bucket.append(data)
+                self.size += 1
+                break
+            print(self.buckets)
         # TODO: Check if the load factor exceeds a threshold such as 0.75
         while self.load_factor() > .75:
         # TODO: If so, automatically resize to reduce the load factor
@@ -138,7 +150,8 @@ class HashTable(object):
             # Remove the key-value entry from the bucket
             bucket.delete(entry)
         else:  # Not found
-            raise KeyError('Key not found: {}'.format(key))
+            print("Key not found: {}".format(key))
+            #raise KeyError('Key not found: {}'.format(key))
 
     def _resize(self, new_size=None):
         """Resize this hash table's buckets and rehash all key-value entries.
