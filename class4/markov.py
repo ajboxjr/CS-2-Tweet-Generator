@@ -9,14 +9,16 @@ class Markov(dict):
         self['START'] = Dictogram()
         if text:
             #Creating a markov model for each sentence
-            self.markov(text)
+            self.markov(text, 1)
     def tokenize_sentence(self, text):
         """ Using nltk split corpus based on sentences"""
         sentence_arr = sent_tokenize(text)
         print("There are {} sentences".format(len(sentence_arr)))
         return sentence_arr
 
-    def markov(self,text):
+                
+        
+    def markov(self,text, order=1):
         """ Create a markoff model based on the text array input into the file """
         corpus = self.tokenize_sentence(text)
         print(corpus)
@@ -26,9 +28,9 @@ class Markov(dict):
             x = 0
             self['START'].add_count(sentence[0])
             # From the first to the to last word
-            while x< len(sentence)-1:
-                word = sentence[x]
-                next_word = sentence[x+1]
+            while x< len(sentence)-order:
+                word = " ".join(sentence[x:x+order])
+                next_word = sentence[order+x]
                 if word not in self.keys():
                     self[word]= Dictogram()
                 self[word].add_count(next_word)
